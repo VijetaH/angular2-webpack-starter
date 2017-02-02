@@ -1,0 +1,84 @@
+<nav>
+    <a [routerLink]=" ['./'] " routerLinkActive="active">
+        Index
+    </a>
+    <a [routerLink]=" ['./home'] " routerLinkActive="active">
+        Home
+    </a>
+    <a [routerLink]=" ['./detail'] " routerLinkActive="active">
+        Detail
+    </a>
+    <a [routerLink]=" ['./barrel'] " routerLinkActive="active">
+        Barrel
+    </a>
+    <a [routerLink]=" ['./about'] " routerLinkActive="active">
+        About
+    </a>
+</nav>
+
+<main>
+    <router-outlet></router-outlet>
+</main>
+<kendo-grid
+        [data]="view | async"
+        [pageSize]="pageSize"
+        [skip]="skip"
+        [pageable]="true"
+        [sortable]="{ mode: 'multiple' }"
+        [sort]="sort">
+    <kendo-grid-column field="Select" title="Select" width="120">
+        <template kendoGridCellTemplate let-dataItem>
+            <input type="checkbox" [checked]="true"/>
+        </template>
+    </kendo-grid-column>
+    <kendo-grid-column field="CategoryID" width="100">
+    </kendo-grid-column>
+    <kendo-grid-column field="CategoryName" width="200">
+        <template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+            <!--Row: {{rowIndex}} /-->
+            <!--<strong>{{dataItem.ProductName}}</strong>-->
+            <span class="{{dataItem.Discontinued ? 'discontinued' : 'active'}}"><a target='_blank' href='www.google.com'>{{dataItem.CategoryName}}</a></span>
+        </template>
+    </kendo-grid-column>
+    <kendo-grid-column field="Description" [sortable]="false">
+    </kendo-grid-column>
+</kendo-grid>
+<!--<pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>-->
+<h1>{{title}}</h1>
+<kendo-chart [categoryAxis]="{ categories: categories }">
+    <kendo-chart-title text="Connector Stats"></kendo-chart-title>
+    <kendo-chart-legend position="top" orientation="horizontal"></kendo-chart-legend>
+    <kendo-chart-tooltip format="{0}%"></kendo-chart-tooltip>
+    <kendo-chart-series>
+        <kendo-chart-series-item *ngFor="let item of series"
+                                 type="column" [data]="item.data" [name]="item.name">
+        </kendo-chart-series-item>
+    </kendo-chart-series>
+</kendo-chart>
+
+<!--<kendo-grid [data]="gridData" [height]="370" [pageable]="{buttonCount:2,info:false}">
+    <kendo-grid-column field="ProductID" title="ID" width="40">
+    </kendo-grid-column>
+    <kendo-grid-column field="ProductName" title="Name" width="250">
+    </kendo-grid-column>
+    <kendo-grid-column field="Category.CategoryName" title="Category">
+    </kendo-grid-column>
+    <kendo-grid-column field="UnitPrice" title="Price" width="80">
+    </kendo-grid-column>
+    <kendo-grid-column field="UnitsInStock" title="In stock" width="80">
+    </kendo-grid-column>
+    <kendo-grid-column field="Discontinued" title="Discontinued" width="120">
+        <template kendoGridCellTemplate let-dataItem>
+            <input type="checkbox" [checked]="dataItem.Discontinued" disabled/>
+        </template>
+    </kendo-grid-column>
+</kendo-grid>-->
+<!--
+<footer>
+    <span>WebPack Angular 2 Starter by <a [href]="url">@AngularClass</a></span>
+    <div>
+        <a [href]="url">
+            <img [src]="angularclassLogo" width="25%">
+        </a>
+    </div>
+</footer>-->
